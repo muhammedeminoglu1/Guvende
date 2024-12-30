@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kullanıcı Güncelle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Ana Sayfa</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/kullanici/ekle">Yeni Kullanıcı Ekle</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/kullanici/guncelle">Kullanıcı Güncelle</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h2>Kullanıcı Güncelle</h2>
+
+    <!-- Email ile Arama Formu -->
+    <form th:action="@{/guncelle/arama}" method="post">
+        <div class="form-group">
+            <label for="emailArama">Email ile Kullanıcı Ara</label>
+            <input type="email" id="emailArama" name="email" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Ara</button>
+    </form>
+
+    <div th:if="${hata}" class="alert alert-danger mt-3">
+        <p th:text="${hata}"></p>
+    </div>
+
+
+    <!-- Kullanıcı Güncelleme Formu -->
+    <form th:action="@{/guncelle}" th:object="${kullaniciRequestDTO}" method="post">
+        <h2>Kullanıcı Bilgileri</h2>
+        <div class="form-group">
+            <label for="adi">Adı</label>
+            <input type="text" id="adi" name="adi" th:value="*{adi}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="soyadi">Soyadı</label>
+            <input type="text" id="soyadi" name="soyadi" th:value="*{soyadi}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" th:value="*{email}" class="form-control" readonly required>
+        </div>
+
+        <div class="form-group">
+            <label for="adres">Adres</label>
+            <input type="text" id="adres" name="adres" th:value="*{adres}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="kisiselTelefon">Telefon</label>
+            <input type="tel" id="kisiselTelefon" name="kisiselTelefon" th:value="*{kisiselTelefon}" class="form-control">
+        </div>
+
+        <h2>Veli Bilgileri</h2>
+        <div class="form-group">
+            <label for="veliAdi">Veli Adı</label>
+            <input type="text" id="veliAdi" name="veliBilgileriDTO.veliAdi" th:value="*{veliBilgileriDTO.veliAdi}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="veliSoyadi">Veli Soyadı</label>
+            <input type="text" id="veliSoyadi" name="veliBilgileriDTO.veliSoyadi" th:value="*{veliBilgileriDTO.veliSoyadi}" class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="veliTelefon">Veli Telefon</label>
+            <input type="tel" id="veliTelefon" name="veliBilgileriDTO.veliTelefon" th:value="*{veliBilgileriDTO.veliTelefon}" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success">Güncelle</button>
+    </form>
+
+</div>
+</body>
+</html>

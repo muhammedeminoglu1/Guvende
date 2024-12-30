@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Listesi</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f7f8f8;
+        }
+        h1 {
+            color: #343a40;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        /* Flex düzenini kaldırıyoruz, her iki tabloyu alt alta yerleştiriyoruz */
+        .row {
+            display: block; /* Sütunlar alt alta sıralanacak şekilde değiştiriyoruz */
+        }
+        .col-lg-9, .col-lg-3 {
+            width: 100%; /* Her iki sütunun da tam genişlikte olmasını sağlıyoruz */
+        }
+        /* Tablolar arasında boşluk ekliyoruz */
+        .table-container {
+            margin-bottom: 30px; /* Tablolar arasındaki boşluk */
+        }
+        .table {
+            width: 100%; /* Tabloyu tam genişlikte yapıyoruz */
+        }
+        /* İzinli Kullanıcılar Tablosu için sütun genişlikleri */
+        .izinli-kullanici-table th, .izinli-kullanici-table td {
+            white-space: nowrap; /* Verilerin kesilmesini engellemek için */
+            word-wrap: break-word;
+        }
+        /* Kullanıcı Listesi Tablosu için sütun genişlikleri */
+        .kullanici-listesi-table th, .kullanici-listesi-table td {
+            white-space: nowrap; /* Verilerin kesilmesini engellemek için */
+            word-wrap: break-word;
+        }
+        /* Tabloların sütun genişliklerini ayarlıyoruz */
+        .kullanici-listesi-table th:nth-child(1), .kullanici-listesi-table td:nth-child(1) {
+            width: 10%; /* ID sütunu için dar alan */
+        }
+        .kullanici-listesi-table th:nth-child(2), .kullanici-listesi-table td:nth-child(2) {
+            width: 15%; /* Adı sütunu için geniş alan */
+        }
+        .kullanici-listesi-table th:nth-child(3), .kullanici-listesi-table td:nth-child(3) {
+            width: 15%; /* Soyadı sütunu için geniş alan */
+        }
+        .kullanici-listesi-table th:nth-child(4), .kullanici-listesi-table td:nth-child(4) {
+            width: 20%; /* Email sütunu için geniş alan */
+        }
+        .kullanici-listesi-table th:nth-child(5), .kullanici-listesi-table td:nth-child(5) {
+            width: 15%; /* Telefon sütunu için geniş alan */
+        }
+        .kullanici-listesi-table th:nth-child(6), .kullanici-listesi-table td:nth-child(6) {
+            width: 20%; /* Adres sütunu için daha geniş alan */
+        }
+        .kullanici-listesi-table th:nth-child(7), .kullanici-listesi-table td:nth-child(7),
+        .kullanici-listesi-table th:nth-child(8), .kullanici-listesi-table td:nth-child(8),
+        .kullanici-listesi-table th:nth-child(9), .kullanici-listesi-table td:nth-child(9) {
+            width: 10%; /* Diğer bilgileri için daha dar alan */
+        }
+        /* İzinli Kullanıcılar Tablosu için sütun genişlikleri */
+        .izinli-kullanici-table th:nth-child(1), .izinli-kullanici-table td:nth-child(1) {
+            width: 20%; /* Adı sütunu */
+        }
+        .izinli-kullanici-table th:nth-child(2), .izinli-kullanici-table td:nth-child(2) {
+            width: 20%; /* Soyadı sütunu */
+        }
+        .izinli-kullanici-table th:nth-child(3), .izinli-kullanici-table td:nth-child(3) {
+            width: 30%; /* İzin Başlangıç Tarihi sütunu */
+        }
+        .izinli-kullanici-table th:nth-child(4), .izinli-kullanici-table td:nth-child(4) {
+            width: 30%; /* İzin Bitiş Tarihi sütunu */
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Ana Sayfa</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/kullanici/ekle">Yeni Kullanıcı Ekle</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/guncelle">Kullanici Guncelle</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Kullanıcı Listesi ve İzinli Kullanıcılar Bölümü -->
+<div class="container">
+    <div class="row">
+        <!-- Kullanıcı Listesi Tablosu (Sol Tablo) -->
+        <div class="col-lg-9 col-md-12 mb-4">
+            <h1 class="text-left mb-4">Kullanıcı Listesi</h1>
+            <div class="table-container">
+                <table class="table table-bordered table-striped kullanici-listesi-table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>Email</th>
+                        <th>Telefon</th>
+                        <th>Adres</th>
+                        <th>İzin Bilgileri</th>
+                        <th>Veli Bilgileri</th>
+                        <th>Konum Bilgisi</th>
+                        <th>Kullanıcı sil</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="kullanici : ${kullanicilar}">
+                        <td th:text="${kullanici.id}"></td>
+                        <td th:text="${kullanici.adi}"></td>
+                        <td th:text="${kullanici.soyadi}"></td>
+                        <td th:text="${kullanici.email}"></td>
+                        <td th:text="${kullanici.kisiselTelefon}">-</td>
+                        <td th:text="${kullanici.adres}"></td>
+                        <td>
+                            <a th:href="@{/izin/{id}(id=${kullanici.id})}" class="btn btn-info btn-sm">İzin Bilgileri</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/veli-bilgileri/{id}(id=${kullanici.id})}" class="btn btn-info btn-sm">Veli Bilgileri</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/konum/{id}(id=${kullanici.id})}" class="btn btn-info btn-sm">Konum Bilgisi</a>
+                        </td>
+                        <td>
+                            <a th:href="@{/kullancisil/{id}(id=${kullanici.id})}" style="background-color: #ff0000; color: white;" class="btn btn-info btn-sm">Sil</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- İzinli Kullanıcılar Tablosu (Sağ Tablo) -->
+        <div class="col-lg-3 col-md-12">
+            <h1 class="text-left mb-4">Bugün İzinli Olan Kullanıcılar</h1>
+            <div class="table-container">
+                <table class="table table-bordered table-striped izinli-kullanici-table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>İzin Başlangıç Tarihi</th>
+                        <th>İzin Bitiş Tarihi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="izinliKullanici : ${izinliKullanicilar}">
+                        <td th:text="${izinliKullanici.adi}">Ahmet</td>
+                        <td th:text="${izinliKullanici.soyadi}">Yılmaz</td>
+                        <td th:text="${izinliKullanici.izinBaslangicTarihi}">2023-07-01</td>
+                        <td th:text="${izinliKullanici.izinBitisTarihi}">2023-07-15</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

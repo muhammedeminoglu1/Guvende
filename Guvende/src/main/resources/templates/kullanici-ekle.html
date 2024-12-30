@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kullanıcı Ekle</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Yeni Kullanıcı Ekle</h1>
+    <form th:action="@{/kullanici/ekle}" method="post">
+        <!-- Kullanıcı Bilgileri -->
+        <div class="form-group">
+            <label for="adi">Adı</label>
+            <input type="text" class="form-control" id="adi" name="adi" required>
+        </div>
+        <div class="form-group">
+            <label for="soyadi">Soyadı</label>
+            <input type="text" class="form-control" id="soyadi" name="soyadi" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="kisiselTelefon">Telefon</label>
+            <input type="text" class="form-control" id="kisiselTelefon" name="kisiselTelefon" required>
+        </div>
+        <div class="form-group">
+            <label for="adres">Adres</label>
+            <input type="text" class="form-control" id="adres" name="adres" required>
+        </div>
+        <div class="form-group">
+            <label for="kayitTarihi">Kayıt Tarihi</label>
+            <input type="date" class="form-control" id="kayitTarihi" name="kayitTarihi" required>
+        </div>
+        <div class="form-group">
+            <label for="cikisTarihi">Çıkış Tarihi</label>
+            <input type="date" class="form-control" id="cikisTarihi" name="cikisTarihi">
+        </div>
+
+        <!-- Şifre Bilgileri -->
+        <div class="form-group">
+            <label for="kullaniciSifre">Şifre</label>
+            <input type="password" class="form-control" id="kullaniciSifre" name="kullaniciSifre" required>
+        </div>
+
+
+        <!-- Veli Bilgileri -->
+        <h3>Veli Bilgileri</h3>
+        <div class="form-group">
+            <label for="veliAdi">Veli Adı</label>
+            <input type="text" class="form-control" id="veliAdi" name="veliBilgileriDTO.veliAdi" required>
+        </div>
+        <div class="form-group">
+            <label for="veliSoyadi">Veli Soyadı</label>
+            <input type="text" class="form-control" id="veliSoyadi" name="veliBilgileriDTO.veliSoyadi" required>
+        </div>
+        <div class="form-group">
+            <label for="veliTelefon">Veli Telefon</label>
+            <input type="text" class="form-control" id="veliTelefon" name="veliBilgileriDTO.veliTelefon" required>
+        </div>
+        <div class="form-group">
+            <label for="veliNotu">Veli Notu</label>
+            <textarea class="form-control" id="veliNotu" name="veliBilgileriDTO.veliNotu"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Kullanıcı Ekle</button>
+    </form>
+</div>
+</body>
+</html>

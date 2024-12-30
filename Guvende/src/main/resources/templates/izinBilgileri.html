@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>İzin Bilgileri</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+<div class="container mt-5">
+    <h2 th:text="'İzin Bilgileri: ' + ${kullaniciAdi}" class="text-center mb-4"></h2>
+
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th>İzin Hakkı Var Mı</th>
+            <th>İzin Başlangıç Tarihi</th>
+            <th>İzin Bitiş Tarihi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="izin : ${izinBilgileri}">
+            <td th:text="${izin.izinHakkiVarMi ? 'Evet' : 'Hayır'}"></td>
+            <td th:text="${izin.izinBaslangicTarihi}"></td>
+            <td th:text="${izin.izinBitisTarihi}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Form for requesting new leave -->
+    <h4 class="mt-4">Yeni İzin Talebi</h4>
+    <form th:action="@{/ekle}" method="post">
+        <input type="hidden" name="kullaniciId" th:value="${kullaniciId}"/>
+
+        <div class="form-group">
+            <label for="baslangicTarihi">İzin Başlangıç Tarihi</label>
+            <input type="date" id="baslangicTarihi" name="baslangicTarihi" class="form-control" required/>
+        </div>
+
+        <div class="form-group">
+            <label for="bitisTarihi">İzin Bitiş Tarihi</label>
+            <input type="date" id="bitisTarihi" name="bitisTarihi" class="form-control" required/>
+        </div>
+
+        <button type="submit" class="btn btn-primary">İzin Talep Et</button>
+    </form>
+
+    <div class="text-center">
+        <a href="/kullanicilar" class="btn btn-secondary mt-3">Geri Dön</a>
+    </div>
+</div>
+</body>
+</html>

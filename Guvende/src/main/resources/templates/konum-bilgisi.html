@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Konum Bilgileri</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Kullanıcı Konum Bilgileri</h1>
+
+  <!-- Tablo -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-dark">
+      <tr>
+        <th>Enlem</th>
+        <th>Boylam</th>
+        <th>Email</th>
+        <th>Adres</th> <!-- Yeni sütun -->
+        <th>Harita</th>
+      </tr>
+      </thead>
+      <tbody>
+      <th:block th:each="konum, iterStat : ${konumBilgileri}">
+        <tr>
+          <td th:text="${konum.enlem}"></td>
+          <td th:text="${konum.boylam}"></td>
+          <td th:text="${konum.email}"></td>
+          <td th:text="${konum.address}"></td>
+          <td>
+            <!-- Google Maps Linki ile yönlendirme -->
+            <a th:href="'https://www.google.com/maps?q=' + ${konum.enlem} + ',' + ${konum.boylam}" target="_blank" class="btn btn-primary btn-sm">
+              Haritada Gör
+            </a>
+          </td>
+        </tr>
+      </th:block>
+      </tbody>
+    </table>
+  </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
